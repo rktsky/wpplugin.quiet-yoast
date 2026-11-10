@@ -35,7 +35,7 @@ try {
  const seoPart=s=>s.match(/<!-- This site is optimized[^]*?<!-- \/ Yoast SEO plugin\. -->/)?.[0]||s.match(/<!-- This site is optimized[^]*?<!-- \/Yoast SEO plugin\. -->/)?.[0];
  check('Anonymous frontend byte-identical',front.text===baseline.text,{baselineLength:baseline.text.length,activeLength:front.text.length});
  check('No frontend assets',frontProbe.frontend_styles?.length===0&&frontProbe.frontend_scripts?.length===0,frontProbe);
- check('No registered SEO filters',frontProbe.owned_hooks.every(([h])=>['plugins_loaded','wp_loaded','wpseo_submenu_pages','admin_enqueue_scripts','admin_menu','network_admin_menu','admin_bar_menu','plugin_action_links_wordpress-seo/wp-seo.php','network_admin_plugin_action_links_wordpress-seo/wp-seo.php'].includes(h)),frontProbe.owned_hooks);
+ check('Only expected admin and update hooks registered',frontProbe.owned_hooks.every(([h])=>['plugins_loaded','wp_loaded','wpseo_submenu_pages','admin_enqueue_scripts','admin_menu','network_admin_menu','admin_bar_menu','plugin_action_links_wordpress-seo/wp-seo.php','network_admin_plugin_action_links_wordpress-seo/wp-seo.php','update_plugins_github.com','plugins_api'].includes(h)),frontProbe.owned_hooks);
  const admin=await handler.request({url:'/wp-admin/index.php',headers:{cookie:cookies}});
  const probe=JSON.parse(fs.readFileSync(path.join(fixtureDir,'probe.json')));
  check('Authenticated native admin page responds',admin.httpStatusCode===200&&admin.text.includes('wpbody-content'),{status:admin.httpStatusCode,errors:admin.errors});
@@ -62,9 +62,9 @@ try {
   check('Counter JS scope '+url,p.own_scripts.includes('rktsky-quiet-yoast-counters')===expectedJs,detail);
   if(expectedJs) {
    const registration=p.own_script_registry['rktsky-quiet-yoast-counters'];
-   check('Native JS registration '+url,registration?.deps?.length===0&&registration.ver==='1.1.1'&&registration.extra.group===1&&registration.extra.strategy==='defer'&&new URL(registration.src).pathname.endsWith('/rktsky-quiet-yoast/assets/counters.js'),registration);
+   check('Native JS registration '+url,registration?.deps?.length===0&&registration.ver===header.Version&&registration.extra.group===1&&registration.extra.strategy==='defer'&&new URL(registration.src).pathname.endsWith('/rktsky-quiet-yoast/assets/counters.js'),registration);
    const tag=response.text.match(/<script[^>]*id="rktsky-quiet-yoast-counters-js"[^>]*>/)?.[0]||'';
-   check('Native footer output and defer '+url,tag.includes('counters.js?ver=1.1.1')&&tag.includes('defer')&&response.text.indexOf(tag)>response.text.indexOf('id="wpfooter"'),{tag});
+   check('Native footer output and defer '+url,tag.includes('counters.js?ver='+header.Version)&&tag.includes('defer')&&response.text.indexOf(tag)>response.text.indexOf('id="wpfooter"'),{tag});
   }
   if(url==='/wp-admin/plugins.php') {
    const row=response.text.match(/<tr[^>]*data-plugin="wordpress-seo\/wp-seo\.php"[^]*?<\/tr>/)?.[0]||'';

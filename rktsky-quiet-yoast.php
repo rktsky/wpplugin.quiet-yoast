@@ -2,10 +2,11 @@
 /**
  * Plugin Name: Rocketsky – Quiet Yoast
  * Description: Blendet Premium-Werbung in der kostenlosen Version von Yoast SEO aus.
- * Version: 1.1.1
+ * Version: 1.2.0
  * Requires at least: 6.5
  * Requires PHP: 7.4
  * Requires Plugins: wordpress-seo
+ * Update URI: https://github.com/rktsky/wpplugin.quiet-yoast
  * Author: Rocketsky
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -24,5 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once __DIR__ . '/includes/class-plugin.php';
+require_once __DIR__ . '/includes/class-updater.php';
 
+Updater::register( __FILE__ );
 add_action( 'plugins_loaded', array( Plugin::class, 'boot' ), 20 );

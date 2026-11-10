@@ -25,7 +25,7 @@ final class Plugin {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	private const VERSION = '1.1.1';
+	private const VERSION = '1.2.0';
 
 	/**
 	 * Advertising page identifiers verified against original Yoast SEO 28.8.

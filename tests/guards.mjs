@@ -13,8 +13,8 @@ try {
  }
  const dep=JSON.parse((await run(`require '/wordpress/wp-load.php';require_once ABSPATH.'wp-admin/includes/plugin.php';$e=activate_plugin('rktsky-quiet-yoast/rktsky-quiet-yoast.php');echo json_encode(['error'=>is_wp_error($e)?$e->get_error_code():null,'message'=>is_wp_error($e)?$e->get_error_message():null]);`)).text);
  results.push({scenario:'native missing dependency activation',pass:dep.error==='plugin_missing_dependencies',...dep});console.log('dependency',dep);
- const syntax=JSON.parse((await run(`$files=['/wordpress/wp-content/plugins/rktsky-quiet-yoast/rktsky-quiet-yoast.php','/wordpress/wp-content/plugins/rktsky-quiet-yoast/includes/class-plugin.php'];$r=[];foreach($files as $file){token_get_all(file_get_contents($file),TOKEN_PARSE);$r[]=basename($file);}echo json_encode(['parsed'=>$r,'php'=>PHP_VERSION]);`)).text);
- results.push({scenario:'PHP7.4 syntax parser',pass:syntax.parsed.length===2,...syntax});console.log('PASS parser',syntax);
+ const syntax=JSON.parse((await run(`$root='/wordpress/wp-content/plugins/rktsky-quiet-yoast/';$files=['rktsky-quiet-yoast.php','includes/class-plugin.php','includes/class-updater.php'];$r=[];foreach($files as $file){token_get_all(file_get_contents($root.$file),TOKEN_PARSE);$r[]=$file;}echo json_encode(['parsed'=>$r,'php'=>PHP_VERSION]);`)).text);
+ results.push({scenario:'PHP7.4 syntax parser',pass:syntax.parsed.length===3,...syntax});console.log('PASS parser',syntax);
  fs.writeFileSync(path.join(resultsDirectory,'guard-results.json'),JSON.stringify(results.map(({scenario,pass,php,coverage})=>({scenario,pass,php,coverage})),null,2));
  if(results.some(r=>!r.pass))process.exitCode=1;
 }finally{await handler[Symbol.asyncDispose]();}

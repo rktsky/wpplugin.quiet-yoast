@@ -7,7 +7,7 @@ const suite = process.argv[2] || 'all';
 if (!['all', 'native'].includes(suite)) {
 	throw new Error('Unknown suite: ' + suite);
 }
-const scripts = ['integration.mjs', 'guards.mjs'];
+const scripts = ['integration.mjs', 'guards.mjs', 'updater.mjs'];
 if (suite === 'all') {
 	scripts.push('counter-dom.mjs');
 }

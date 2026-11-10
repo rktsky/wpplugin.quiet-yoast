@@ -42,7 +42,9 @@ export async function bootTestWordPress({ phpVersion = '8.3', pluginDirectory = 
 						throw new Error('Verified Yoast extraction failed: ' + result.errors);
 					}
 				}
-				await php.mount('/wordpress/wp-content/plugins/rktsky-quiet-yoast', createNodeFsMountHandler(pluginDirectory));
+				if (pluginDirectory !== null) {
+					await php.mount('/wordpress/wp-content/plugins/rktsky-quiet-yoast', createNodeFsMountHandler(pluginDirectory));
+				}
 				for (const [target, source] of extraMounts) {
 					await php.mount(target, createNodeFsMountHandler(path.resolve(source)));
 				}
