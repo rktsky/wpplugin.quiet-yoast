@@ -1,6 +1,6 @@
 {
   "name": "@rktsky/quiet-yoast-development",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "description": "Development-only verification for Rocketsky Quiet Yoast; no runtime plugin dependencies.",
   "license": "GPL-2.0-or-later",

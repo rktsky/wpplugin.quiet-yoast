@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Rocketsky – Quiet Yoast
  * Description: Blendet Premium-Werbung in der kostenlosen Version von Yoast SEO aus.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Requires at least: 6.5
  * Requires PHP: 7.4
  * Requires Plugins: wordpress-seo

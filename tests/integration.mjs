@@ -62,9 +62,9 @@ try {
   check('Counter JS scope '+url,p.own_scripts.includes('rktsky-quiet-yoast-counters')===expectedJs,detail);
   if(expectedJs) {
    const registration=p.own_script_registry['rktsky-quiet-yoast-counters'];
-   check('Native JS registration '+url,registration?.deps?.length===0&&registration.ver==='1.1.0'&&registration.extra.group===1&&registration.extra.strategy==='defer'&&new URL(registration.src).pathname.endsWith('/rktsky-quiet-yoast/assets/counters.js'),registration);
+   check('Native JS registration '+url,registration?.deps?.length===0&&registration.ver==='1.1.1'&&registration.extra.group===1&&registration.extra.strategy==='defer'&&new URL(registration.src).pathname.endsWith('/rktsky-quiet-yoast/assets/counters.js'),registration);
    const tag=response.text.match(/<script[^>]*id="rktsky-quiet-yoast-counters-js"[^>]*>/)?.[0]||'';
-   check('Native footer output and defer '+url,tag.includes('counters.js?ver=1.1.0')&&tag.includes('defer')&&response.text.indexOf(tag)>response.text.indexOf('id="wpfooter"'),{tag});
+   check('Native footer output and defer '+url,tag.includes('counters.js?ver=1.1.1')&&tag.includes('defer')&&response.text.indexOf(tag)>response.text.indexOf('id="wpfooter"'),{tag});
   }
   if(url==='/wp-admin/plugins.php') {
    const row=response.text.match(/<tr[^>]*data-plugin="wordpress-seo\/wp-seo\.php"[^]*?<\/tr>/)?.[0]||'';
