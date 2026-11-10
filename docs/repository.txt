@@ -28,10 +28,11 @@ coverage boundaries. GitHub Actions runs native WordPress/PHP verification and
 presentation regressions separately on main and pull requests. A local pass
 does not substitute for a completed GitHub run.
 
-Installable release 1.1.1 contains only these eight owned files:
+Installable release 1.2.0 contains these nine owned files:
 
     rktsky-quiet-yoast.php
     includes/class-plugin.php
+    includes/class-updater.php
     assets/admin.css
     assets/counters.js
     readme.txt
@@ -48,10 +49,18 @@ manifests, installed development libraries or downloaded original packages.
 README.md and docs/screenshots/ are repository presentation assets and are
 excluded from the installable package. Screenshot pairs use the same isolated
 site, user, viewport and opened sections with the plugin inactive/active.
-Each GitHub Release uses its matching version tag. Published tags and assets
-are not replaced; fixes receive a new patch version. The uploaded
-rktsky-quiet-yoast-1.1.1.zip is the tested installable package; the
-platform-generated source archives also contain development files.
+Each GitHub Release uses its matching vMAJOR.MINOR.PATCH tag. Attach the
+versioned rktsky-quiet-yoast-MAJOR.MINOR.PATCH.zip before publishing the latest
+stable release. The WordPress updater matches this asset name and its
+versioned download URL. The platform-generated source archives contain
+development files. Published tags and assets are kept as released.
+
+Verify that the ZIP's plugin header matches the tag and the stable update
+channel's minimums of WordPress 6.5 and PHP 7.4 before publishing it.
+
+Existing installations of Quiet Yoast 1.1.1 or earlier acquire the updater
+by replacing the plugin once with the 1.2.0 installation ZIP. Subsequent stable
+releases appear in the WordPress plugin list during its regular update checks.
 
 Deployment to a WordPress site and submission to WordPress.org are separate
 actions. This repository publication does neither.

@@ -28,7 +28,9 @@ Die Archive werden nur in `.cache/test-runtime/` gespeichert. WordPress und Yoas
 
 ## Umfang und Grenzen
 
-Die WordPress-Prüfung umfasst echte Plugin-Aktivierung, Abhängigkeitsprüfung, authentifizierte Verwaltungsanfragen, Menüs und Toolbar, Editor-Berechtigungen, gezieltes Entfernen des Premium-Links, ähnliche URLs als Gegenproben, Asset-Registrierung und den Vergleich der öffentlichen Ausgabe mit und ohne Plugin. Sie prüft die native Registrierung des Zähler-Skripts mit leerer Abhängigkeitsliste, Version 1.1.1, Footer-Gruppe und `defer` sowie dessen Beschränkung auf die vorgesehenen Seiten.
+Die WordPress-Prüfung umfasst echte Plugin-Aktivierung, Abhängigkeitsprüfung, authentifizierte Verwaltungsanfragen, Menüs und Toolbar, Editor-Berechtigungen, gezieltes Entfernen des Premium-Links, ähnliche URLs als Gegenproben, Asset-Registrierung und den Vergleich der öffentlichen Ausgabe mit und ohne Plugin. Sie prüft die native Registrierung des Zähler-Skripts mit leerer Abhängigkeitsliste, Version gemäss Plugin-Header, Footer-Gruppe und `defer` sowie dessen Beschränkung auf die vorgesehenen Seiten.
+
+Die Updater-Prüfung nutzt WordPress' reguläre Updateprüfung und den echten Update-Aufruf aus der Pluginverwaltung. Der Test stellt die Antworten von WordPress.org und GitHub über die WordPress-HTTP-Schnittstelle bereit. WordPress installiert die ZIP in einem flüchtigen Dateisystem und liest danach die neue Version am gleichen Plugin-Pfad. Mit `QUIET_YOAST_RELEASE_ZIP` lässt sich das fertige Installationspaket für diesen Test angeben.
 
 Die DOM-Prüfung umfasst neue und wiederverwendete Zähler, Ein- und Ausklappen, unbekannte Strukturen, geänderte ARIA- und Screenreader-Zustände, unveränderte SVG-/Text-Knoten, echte Prüfungen mit gesperrten AI-Schaltflächen und reine Werbebereiche. Sie ersetzt keine Prüfung in einem echten Browser mit laufendem Yoast-React-Code. Die Premium-Schutzprüfung simuliert nur die Anbieter-Konstanten; ein kommerzielles Premium-Paket ist nicht enthalten.
 

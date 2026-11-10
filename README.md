@@ -7,9 +7,9 @@
 <p>Clean up the interface and exclude hidden promotional items from the displayed counts.</p>
 
 <p>
-  <a href="https://github.com/rktsky/wpplugin.quiet-yoast/releases/download/v1.1.1/rktsky-quiet-yoast-1.1.1.zip" target="_blank" rel="noopener noreferrer"><strong>↓ Download plugin · v1.1.1</strong></a>
+  <a href="https://github.com/rktsky/wpplugin.quiet-yoast/releases/download/v1.2.0/rktsky-quiet-yoast-1.2.0.zip" target="_blank" rel="noopener noreferrer"><strong>↓ Download plugin · v1.2.0</strong></a>
   &nbsp; · &nbsp;
-  <a href="https://github.com/rktsky/wpplugin.quiet-yoast/releases/tag/v1.1.1" target="_blank" rel="noopener noreferrer">View release</a>
+  <a href="https://github.com/rktsky/wpplugin.quiet-yoast/releases/tag/v1.2.0" target="_blank" rel="noopener noreferrer">View release</a>
 </p>
 
 <p><sub>A WordPress plugin by Rocketsky · GPL-2.0-or-later</sub></p>
@@ -38,11 +38,17 @@ Both screenshots show the same test installation, with the same sections expande
 ## Installation
 
 1. Activate the free version of **Yoast SEO**.
-2. Download **`rktsky-quiet-yoast-1.1.1.zip`** using the link above.
+2. Download **`rktsky-quiet-yoast-1.2.0.zip`** using the link above.
 3. In WordPress, go to **Plugins → Add New Plugin → Upload Plugin** and install the ZIP file.
 4. Activate **Rocketsky – Quiet Yoast** and reload any open admin pages.
 
-There is no settings page. To update, upload the new installation ZIP and replace the existing version. The automatically generated source archives in the release are intended for development.
+The automatically generated source archives in the release are intended for development.
+
+### Updates
+
+If you already use Quiet Yoast 1.1.1 or earlier, upload the 1.2.0 installation ZIP once and confirm that WordPress should replace the installed version.
+
+While Quiet Yoast is active, it checks GitHub for a stable release during WordPress's regular plugin update checks. When a newer release is available, click **Update now** beside Quiet Yoast in **Plugins**. WordPress downloads and installs the release ZIP. You can also enable automatic updates in the same plugin list.
 
 ## What changes
 
@@ -58,7 +64,7 @@ Actual SEO and readability assessments remain unchanged. Support, the Academy’
 
 ## A standalone extension
 
-Quiet Yoast leaves WordPress, Yoast, and other third-party files unchanged. It uses WordPress hooks and its own CSS and JavaScript files. It stores no settings and makes no external requests of its own. CSS and JavaScript load only on the relevant admin screens.
+Quiet Yoast leaves WordPress, Yoast, and other third-party files unchanged. It uses WordPress hooks and its own CSS and JavaScript files. CSS and JavaScript load only on the relevant admin screens. The updater queries the public GitHub release API during the update flow and caches the release metadata in WordPress.
 
 Deactivate the plugin and reload to restore the original interface. Cleanup does not run when Yoast SEO Premium is active.
 
@@ -67,7 +73,7 @@ Deactivate the plugin and reload to restore the original interface. Cleanup does
 
 The plugin requires WordPress 6.5 or later and PHP 7.4 or later. Your Yoast version’s system requirements also apply; Yoast SEO 28.8 requires WordPress 7.0 or later. The CSS rules require a modern browser.
 
-Tested with **WordPress 7.1.4, Yoast SEO Free 28.8, and PHP 8.3.36**. Locally, 53 WordPress integration checks, 43 DOM checks, and 5 PHP and guard checks pass. The interface was also checked in the Classic Editor and block editor, including narrow layouts. The task-list fix was checked with native tasks, progress, a task dialog, route changes, and a narrow viewport. See <a href="https://github.com/rktsky/wpplugin.quiet-yoast/actions" target="_blank" rel="noopener noreferrer">Actions</a> for the latest GitHub runs.
+Tested with **WordPress 7.1.4, Yoast SEO Free 28.8, and PHP 8.3.36**. The 1.2.0 tests exercise release discovery, the WordPress plugin list and installation through its native updater. Earlier browser checks covered the Classic Editor, block editor and task list. See <a href="https://github.com/rktsky/wpplugin.quiet-yoast/actions" target="_blank" rel="noopener noreferrer">Actions</a> for the latest GitHub runs.
 
 Yoast does not provide a single switch for all Premium promotions. The CSS rules and count adjustments therefore depend on the tested interface structure. Yoast updates may require adjustments. Unrecognised structures keep their original counts. An initially collapsed section is corrected only once its rows can be inspected.
 

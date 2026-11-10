@@ -1,11 +1,11 @@
-Rocketsky – Quiet Yoast 1.1.1: interface contracts
+Rocketsky – Quiet Yoast 1.2.0: interface contracts
 Reviewed 2026-11-10
 
 Scope
 
 An independent plugin. No output buffering, provider method replacement,
-filesystem changes to other packages, direct SQL, option writes, remote calls,
-licence emulation, React/Redux manipulation or polling. A scoped standard DOM
+filesystem changes to other packages, direct SQL, settings writes, licence
+emulation, React/Redux manipulation or polling. A scoped standard DOM
 MutationObserver maintains the displayed counter text only.
 No runtime library dependencies beyond WordPress and the existing free Yoast.
 
@@ -63,6 +63,40 @@ https://developer.wordpress.org/apis/security/
 https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/
 https://developer.wordpress.org/coding-standards/inline-documentation-standards/php/
 https://developer.wordpress.org/plugins/wordpress-org/detailed-plugin-guidelines/
+
+GitHub updates (since 1.2.0)
+
+The Update URI header identifies https://github.com/rktsky/wpplugin.quiet-yoast.
+The updater registers update_plugins_github.com independently of the Yoast
+presentation guard. It serves the matching Update URI and the plugin's own
+basename. WordPress compares the reported version to the installed header
+and handles the update notice, download, installation and automatic update
+preference.
+https://developer.wordpress.org/reference/hooks/update_plugins_hostname/
+https://developer.wordpress.org/reference/functions/wp_update_plugins/
+
+wp_safe_remote_get() reads the public latest stable release from this fixed
+endpoint with an anonymous, plugin-specific user agent:
+https://api.github.com/repos/rktsky/wpplugin.quiet-yoast/releases/latest
+
+The response must describe a published stable vMAJOR.MINOR.PATCH release with
+its uploaded rktsky-quiet-yoast-MAJOR.MINOR.PATCH.zip asset at the exact versioned
+GitHub download URL. The updater offers that ZIP as the package. It caches the
+validated version in a network site transient for 15 minutes. Failed checks
+cache an empty result for 5 minutes and report the installed version without
+a package, keeping the native automatic update control available.
+WordPress schedules the regular checks and installs packages through its
+upgrader. Its external update hook runs after the WordPress.org update check.
+https://developer.wordpress.org/reference/functions/wp_safe_remote_get/
+https://developer.wordpress.org/reference/functions/set_site_transient/
+https://docs.github.com/en/rest/releases/releases#get-the-latest-release
+https://docs.github.com/en/rest/releases/assets#get-a-release-asset
+
+The plugins_api filter supplies the plugin's version details dialog. It shares
+the release cache and links to the GitHub changelog with escaped local HTML.
+GitHub release notes are read on GitHub. Update and dialog metadata describe
+the stable channel's minimums of WordPress 6.5 and PHP 7.4.
+https://developer.wordpress.org/reference/hooks/plugins_api/
 
 Provider sources and contracts
 

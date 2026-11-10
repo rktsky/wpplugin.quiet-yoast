@@ -1,4 +1,30 @@
-Rocketsky – Quiet Yoast 1.1.1: verification record
+Rocketsky – Quiet Yoast 1.2.0: verification record
+2026-11-10
+
+GitHub updater verification
+
+The isolated WordPress 7.1.4, Yoast SEO Free 28.8 and PHP 8.3.36/WASM
+runtime passed 53 WordPress integration checks, five PHP/parser/guard
+checks, eight native updater checks and 43 DOM assertions. The PHP 7.4
+parser check covered the new updater class along with both existing PHP files.
+
+The updater suite booted an older fixture copy with the updater present and
+provided release and package responses through WordPress's HTTP filter.
+WordPress discovered the exact stable installation asset, reused cached
+metadata, rendered its normal Plugins update action and opened the native
+version-details dialog. The authenticated AJAX update used WordPress's own
+upgrader to stream and install the ZIP. All nine files matched the release
+source in the original active plugin directory, and the native automatic
+update preference was preserved.
+
+The suite also covers same-version checks, drafts and prereleases, invalid
+tags and JSON, missing and incomplete assets, unexpected download origins
+and a rate-limit response with backoff. Provider files remain unmodified.
+The HTTP fixtures test the WordPress flow in isolation. The public release
+endpoint and downloaded artifact are checked separately during publication.
+The native scheduler was not run as an unattended automatic update.
+
+Baseline 1.1.1 verification
 2026-11-10
 
 Task-list patch verification

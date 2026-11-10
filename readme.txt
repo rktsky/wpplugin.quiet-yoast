@@ -4,7 +4,7 @@ Requires at least: 6.5
 Requires PHP: 7.4
 Requires Plugins: wordpress-seo
 Tested up to: 7.1
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,8 +31,9 @@ kostenlos nutzbare Academy bleiben verfügbar. Die Seite «Plans» bleibt erhalt
 damit Konto- und Lizenzinformationen erreichbar bleiben.
 
 WordPress, Yoast und andere Drittdateien werden nicht verändert. Das Plugin
-speichert keine Einstellungen und stellt keine eigenen externen Verbindungen
-her. Sein CSS lädt nur in Yoast-Verwaltungsansichten und Beitrags- beziehungsweise
+speichert keine Einstellungen. Bei der Updateprüfung fragt es GitHub ab und
+speichert das Ergebnis vorübergehend im WordPress-Zwischenspeicher. Sein CSS
+lädt nur in Yoast-Verwaltungsansichten und Beitrags- beziehungsweise
 Taxonomie-Editoren. Auf öffentlichen Seiten werden
 lediglich Werbeeinträge aus einer vorhandenen Toolbar entfernt; es werden keine
 öffentlichen CSS- oder JavaScript-Dateien ergänzt.
@@ -41,17 +42,26 @@ lediglich Werbeeinträge aus einer vorhandenen Toolbar entfernt; es werden keine
 
 1. Die kostenlose Version von Yoast SEO installieren und aktivieren.
 2. Unter «Plugins > Neues Plugin hinzufügen > Plugin hochladen» die ZIP-Datei
-   rktsky-quiet-yoast-1.1.1.zip auswählen.
+   rktsky-quiet-yoast-1.2.0.zip auswählen.
 3. Installieren und «Rocketsky – Quiet Yoast» aktivieren.
 4. Bereits geöffnete Verwaltungsseiten neu laden.
-
-Bei einem Update dieselbe ZIP hochladen und die vorhandene Pluginversion
-ersetzen. Der Pluginordner und die Aktivierung bleiben dieselben.
 
 Zusätzlich zu den Mindestanforderungen dieses Plugins gelten diejenigen Deiner
 Yoast-Version. Die geprüfte Version Yoast SEO 28.8 benötigt WordPress ab 7.0.
 
-== Grenzen und Updates ==
+== Updates ==
+
+Wenn Du Quiet Yoast 1.1.1 oder älter installiert hast, lade die Installations-ZIP
+für 1.2.0 einmal hoch und bestätige, dass WordPress die installierte Version
+ersetzen soll.
+
+Solange Quiet Yoast aktiv ist, prüft es bei der normalen WordPress-Updateprüfung,
+ob auf GitHub eine neuere stabile Version verfügbar ist. Klicke dann in der
+Pluginliste bei Quiet Yoast auf «Jetzt aktualisieren». WordPress lädt und
+installiert die ZIP-Datei aus dem GitHub-Release. Automatische Updates kannst Du
+in derselben Pluginliste aktivieren.
+
+== Grenzen ==
 
 Die Darstellung wurde für Yoast SEO 28.8 geprüft. Yoast stellt keinen
 dokumentierten Gesamtschalter für seine Premium-Werbung bereit. Deshalb nutzt
@@ -81,8 +91,8 @@ Regeln und können dadurch einzelne Werbeflächen weiterhin anzeigen.
 == Deaktivierung und Deinstallation ==
 
 Deaktivieren und die Verwaltungsseite neu laden, um die normale Darstellung
-wiederherzustellen. Das Plugin hinterlässt keine eigenen Daten und kann danach
-über die Pluginverwaltung gelöscht werden. Es benötigt keinen Uninstall-Hook.
+wiederherzustellen. Danach kannst Du das Plugin über die Pluginverwaltung
+löschen. Die zwischengespeicherten Release-Daten laufen automatisch ab.
 
 == Prüfung ==
 
@@ -95,6 +105,10 @@ Weitere Quellen, Tests und bewusst offene Prüfungen: docs/interfaces.txt und
 docs/verification.txt. Das Paket enthält weder WordPress/Yoast noch Testwerkzeuge.
 
 == Changelog ==
+
+= 1.2.0 =
+Stabile GitHub-Releases erscheinen in der WordPress-Pluginverwaltung. WordPress
+lädt die passende Installations-ZIP beim Aktualisieren direkt von GitHub.
 
 = 1.1.1 =
 Verbliebene Premium-Werbezeile unter der Aufgabenliste ausgeblendet. Aufgaben,
