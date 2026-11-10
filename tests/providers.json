@@ -1,0 +1,12 @@
+{
+  "wordpress": {
+    "version": "7.1.4",
+    "url": "https://wordpress.org/wordpress-7.1.4.zip",
+    "sha256": "a147146c159362778ecbbbfb07bb20ddf4e85b130f971c824e656a8f938c5f87"
+  },
+  "yoast": {
+    "version": "28.8",
+    "url": "https://downloads.wordpress.org/plugin/wordpress-seo.28.8.zip",
+    "sha256": "27cc01cb149db7186ef750552a5cc2ae5028933473886e419918af273b075105"
+  }
+}
