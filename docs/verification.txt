@@ -1,0 +1,105 @@
+Rocketsky – Quiet Yoast 1.1.0: verification record
+2026-11-09
+
+Executed integration checks
+
+WordPress 7.1.4 and original free Yoast SEO 28.8 ran in WordPress Playground
+3.1.62 with PHP 8.3.36/WASM and SQLite. Native WordPress activation, authenticated
+admin requests and provider hook registration were used, not replacements for
+WordPress functions. Fixtures blocked mail, external WP HTTP and scheduled cron.
+
+53 integration assertions passed. They cover dependency/header recognition,
+native activation, existing advertising menus before cleanup, removal and
+preservation of unrelated destinations, administrator/editor roles, toolbar
+nodes, repeated removal, asset scope, native plugin row actions and URL parser
+negative controls, and native JavaScript registration. The counter script has
+no dependencies, version 1.1.0, footer group 1 and defer; it is absent on other
+Yoast pages and outside the intended editor/settings screens.
+Similar hosts, paths, userinfo tricks, malformed/relative
+URLs, plain text and non-string values remain untouched.
+
+The representative anonymous frontend response was byte-identical with and
+without the plugin. No own frontend CSS or JS and no SEO-output filter were
+registered. This establishes output preservation for that fixture; it is not a
+CPU benchmark or a claim about every third-party combination.
+
+Own styles were absent on the WordPress dashboard, plugin list and post list.
+They were present on Classic/block editor requests, Yoast settings and taxonomy
+edit screens. The final PHP debug log was empty.
+
+Five additional checks passed: native activation denied with the Yoast dependency
+missing, PHP 7.4 syntax parsing of both owned PHP files, and simulated absent
+Yoast / Premium FILE / Premium VERSION guards. The latter are constant-level
+tests; no commercial Premium package was tested. PHP 7.4.34-dev/WASM was used for
+these parser and guard checks, not for a complete WordPress/Yoast site run.
+
+All 1949 original Yoast distribution files matched the downloaded archive
+byte-for-byte. Test tools and original provider packages are outside this release.
+
+Executed browser checks
+
+Chromium in the Codex in-app browser on macOS, isolated localhost site:
+
+- Yoast settings rendered real free switches while the Premium sidebar card,
+  modern footer, IndexNow and link-suggestions upsell rows were hidden.
+- Settings at 320, 390, 768 and 1440 CSS-pixel widths retained free SEO switches,
+  showed no horizontal document overflow and kept the Premium rows hidden.
+  These are desktop viewport checks, not physical mobile-device tests.
+- Classic Editor: focus keyphrase and meta description were edited, submitted
+  through native Save Draft and recovered after a full page reload. Yoast's
+  normal SEO analysis continued to show its real findings.
+- Classic readability: the word-complexity advertisement row computed to
+  display:none; real readability findings stayed visible. Five underlying rows
+  including one advertisement produced the corrected label Problems (4).
+  Closing and reopening retained Problems (4). Editing actual article content
+  triggered a native live reanalysis with only the advertisement remaining:
+  Problems (0) and its empty panel were hidden. Returning the problematic text
+  restored the four real findings and their visible panel without reloading.
+- Settings counters showed Site structure (2) and Technical SEO (3), matching
+  their real free rows. Collapse all, Expand all and a route change to Site
+  basics and back retained those values. The final script retained the same
+  values at 320, 390, 768 and 1440 CSS pixels without horizontal overflow.
+- Social tab: locked preview hidden; editable social image/title/description
+  controls remained available.
+- Block editor: Yoast sidebar opened, retained the saved focus keyphrase and
+  real analysis panels; word-complexity upsell row was hidden. Empty promotional
+  WordPress panel wrappers were included in the final CSS cleanup.
+- Block-editor counter pass: five underlying readability rows yielded four
+  visible real findings and Problems (4). Collapse/reopen retained the corrected
+  count. Classic and block-editor browser consoles reported no errors.
+
+Counter-specific regression checks
+
+35 focused DOM regression assertions passed with jsdom 31.0.0 and the actual
+admin.css/counters.js, without a computed-style shim. These are DOM fixtures,
+distinct from the real WordPress browser checks above. They cover:
+
+- Native count equal to the preceding corrected output; repeated updates;
+  translated labels; replacement title nodes and SPA route remounts.
+- Collapse/unmount/reopen using native aria-expanded or translated settings
+  screen-reader labels; initial closed/no evidence; restructured or missing
+  lists; aria-expanded-only and screen-reader-Text-only transitions.
+- Real findings containing locked AI controls, available feature cards and
+  unrelated links; mismatched row totals and ambiguous title markup.
+- SVG, button and title Text node identity; advertisement-only panels hiding
+  and restoring when real results return; no observer feedback while idle.
+
+Review identified stale-cache cases when a list vanished without confirmed
+collapse. The implementation now restores native counts in those unknown
+states. Both additional accessibility-state observer regressions are covered.
+
+Browser testing caught an additional modern footer variant and an incorrect
+assumption that an analysis button ID identified the surrounding result list.
+Both selectors were corrected and rechecked against the actual rendered DOM.
+
+Known coverage limits
+
+No production installation or deployment was performed. No performance timing
+benchmark, WordPress.org submission, WordPress Plugin Check/PHPCS run, separate
+MySQL matrix, real multisite site, commercial Premium package, Elementor live
+session, older Yoast release, Firefox, native Safari, Edge or physical mobile
+device was tested. Elementor selectors were source-reviewed only. Current CSS
+uses :has(); older browsers may leave some promotional elements visible.
+
+No broad compatibility certification is inferred from these checks. After a
+Yoast update, repeat the settings/editor/browser checks before adjusting CSS.

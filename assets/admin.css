@@ -1,0 +1,66 @@
+/**
+ * Quiet Yoast administration presentation, verified against Yoast SEO 28.8.
+ *
+ * These selectors are provider markup contracts, not a public Yoast API.
+ * The stylesheet is loaded through admin_enqueue_scripts on owning screens.
+ * display:none removes the complete promotional control from visual output,
+ * keyboard navigation and the accessibility tree, including React additions.
+ */
+
+/* PHP-rendered premium cards; retain neighbouring help and Academy content. */
+.yoast_premium_upsell,
+#sidebar-container .yoast-sidebar__product,
+#wpseo-installation-successful-free #installation-success-card-optimized-site {
+	display: none !important;
+}
+
+/* The modern Premium card contains a direct square product-logo figure. */
+:is(#yoast-seo-general, #yoast-seo-settings) div.yst-border:has(> figure.yst-logo-square) {
+	display: none !important;
+}
+
+/* The modern footer Paper contains only this Premium/WooCommerce upsell. */
+:is(#yoast-seo-general, #yoast-seo-settings) .yst-paper.yst-max-w-4xl:has(> .yst-p-6 > a.yst-button--upsell:is([href^="https://yoa.st/17h"], [href^="https://yoa.st/admin-footer-upsell-woocommerce"])) {
+	display: none !important;
+}
+
+/* Keep real feature toggles if a formerly gated feature becomes available. */
+#yoast-seo-settings li:has(> [id^="card-wpseo-"] .yst-button--upsell) {
+	display: none !important;
+}
+
+/* FeatureUpsell exists only for a locked feature, never its active controls. */
+:is(#yoast-seo-general, #yoast-seo-settings, #wpseo_meta, #yoast-elementor-react-tab, #yoast-elementor-react-panel, #yoast-social-appearance-modal) .yst-feature-upsell,
+.yst-feature-upsell:has(a[href^="https://yoa.st/social-preview-"]) {
+	display: none !important;
+}
+
+/* Exact provider IDs cover Classic, block-editor sidebar and metabox modes. */
+#yoast-additional-keyphrase-modal-open-button,
+#yoast-additional-keyphrase-metabox-modal-open-button,
+#yoast-internal-linking-suggestions-sidebar-modal-open-button,
+#yoast-internal-linking-suggestions-metabox-modal-open-button,
+[id^="premium-seo-analysis-upsell-ad-"],
+[id^="woo-seo-analysis-upsell-ad-"],
+.yoast.components-panel__body:has(> h2 > :is(#yoast-additional-keyphrase-modal-open-button, #yoast-internal-linking-suggestions-sidebar-modal-open-button)) {
+	display: none !important;
+}
+
+/* The lock child distinguishes an AI upsell from an available AI action. */
+div.yst-relative.yst-inline-flex:has(> button[data-id$="AIFixes"] .yst-fixes-button__lock-icon) {
+	display: none !important;
+}
+
+/*
+ * Yoast builds this UI-only upsell independently of its real assessments.
+ * counters.js corrects only the displayed count; actual scores and React
+ * state remain native.
+ */
+:is(.yoast, .interface-complementary-area) li:has(a[href^="https://yoa.st/word-complexity-"]) {
+	display: none !important;
+}
+
+/* Only the owned counter adapter marks a verified advertisement-only panel. */
+[data-rktsky-quiet-empty="true"] {
+	display: none !important;
+}
