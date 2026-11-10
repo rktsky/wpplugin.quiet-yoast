@@ -1,0 +1,49 @@
+Rocketsky – Quiet Yoast: source repository and release process
+
+Repository: https://github.com/rktsky/wpplugin.quiet-yoast
+Visibility: private
+
+The repository contains the owned WordPress plugin, operating documentation
+and development-only verification source. Development packages are pinned in
+package-lock.json and are never required by an installed WordPress site.
+Downloaded providers, node_modules, caches and generated test results are not
+tracked. The original provider archives are verified before isolated tests.
+
+Source history separates functional PHP/JavaScript with native regressions
+from CSS and presentation regressions. Repository setup and release/operating
+documentation are separate commits. All commits use their real creation time;
+no earlier Git history is implied by the previously delivered local ZIPs.
+
+The functional and visual commits form one release together. Intermediate
+commits are review steps, not standalone installable releases. The version tag
+is applied only after the complete change set and local verification are ready.
+
+Run development verification from the repository with Node.js 24:
+
+    npm ci --ignore-scripts --no-audit --no-fund
+    npm test
+
+tests/README.md records the exact environment, provider versions, checks and
+coverage boundaries. GitHub Actions runs native WordPress/PHP verification and
+presentation regressions separately on main and pull requests. A local pass
+does not substitute for a completed GitHub run.
+
+Installable release 1.1.0 contains only these eight owned files:
+
+    rktsky-quiet-yoast.php
+    includes/class-plugin.php
+    assets/admin.css
+    assets/counters.js
+    readme.txt
+    LICENSE.txt
+    docs/interfaces.txt
+    docs/verification.txt
+
+Place them under rktsky-quiet-yoast/ inside the installable ZIP. .distignore
+excludes development and repository-only files when using compatible archive
+tools. GitHub's general source archive is a developer checkout, not the tested
+installable plugin package. Do not package test fixtures, workflows, dependency
+manifests, installed development libraries or downloaded original packages.
+
+Deployment to a WordPress site and submission to WordPress.org are separate
+actions. This repository publication does neither.

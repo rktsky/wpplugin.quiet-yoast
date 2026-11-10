@@ -1,0 +1,14 @@
+/.git/
+/.github/
+/.gitignore
+/.gitattributes
+/.editorconfig
+/.distignore
+/.node-version
+/node_modules/
+/.cache/
+/test-results/
+/tests/
+/package.json
+/package-lock.json
+/docs/repository.txt

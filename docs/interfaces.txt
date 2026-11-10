@@ -1,0 +1,167 @@
+Rocketsky – Quiet Yoast 1.1.0: interface contracts
+Reviewed 2026-11-09
+
+Scope
+
+An independent plugin. No output buffering, provider method replacement,
+filesystem changes to other packages, direct SQL, option writes, remote calls,
+licence emulation, React/Redux manipulation or polling. A scoped standard DOM
+MutationObserver maintains the displayed counter text only.
+No runtime library dependencies beyond WordPress and the existing free Yoast.
+
+WordPress contracts
+
+plugins_loaded runs after active plugins have loaded. At priority 20 the loaded
+Yoast edition is identified through its provider constants. Missing Yoast and
+either WPSEO_PREMIUM_FILE or WPSEO_PREMIUM_VERSION leave presentation unchanged.
+https://developer.wordpress.org/reference/hooks/plugins_loaded/
+
+wp_loaded runs after provider integrations have registered. At priority 20 it
+adds the documented-in-source public wpseo_submenu_pages filter at PHP_INT_MAX,
+after Yoast's own late Brand Insights and upgrade callbacks. This also applies
+when an editor's first accessible Yoast menu would otherwise be an upsell.
+https://developer.wordpress.org/reference/hooks/wp_loaded/
+
+admin_menu/network_admin_menu at PHP_INT_MAX use remove_submenu_page() for the
+known Yoast parent and the redirects advertisement under tools.php. This is a
+network/legacy navigation fallback. It never changes capabilities. The separate
+Yoast network menu filter is marked internal and is not used.
+https://developer.wordpress.org/reference/functions/remove_submenu_page/
+
+admin_bar_menu at PHP_INT_MAX receives WP_Admin_Bar. remove_node() removes
+specific advertising node IDs; unknown IDs are a no-op. This runs on existing
+authenticated frontend toolbars too, without adding frontend assets.
+https://developer.wordpress.org/reference/hooks/admin_bar_menu/
+https://developer.wordpress.org/reference/classes/wp_admin_bar/remove_node/
+
+The plugin-specific plugin_action_links and network_admin_plugin_action_links
+filters receive action-link arrays. WP_HTML_Tag_Processor reads anchor hrefs;
+wp_parse_url() compares the exact host yoa.st and path /1yb. Remaining keys and
+HTML stay unchanged. It does not parse/rewrite complete pages.
+https://developer.wordpress.org/reference/hooks/plugin_action_links_plugin_file/
+https://developer.wordpress.org/reference/hooks/network_admin_plugin_action_links_plugin_file/
+https://developer.wordpress.org/reference/classes/wp_html_tag_processor/
+https://developer.wordpress.org/reference/functions/wp_parse_url/
+
+admin_enqueue_scripts uses get_current_screen(). Only screen bases post, term,
+edit-tags or IDs containing _page_wpseo_ enqueue one versioned local stylesheet
+with wp_enqueue_style()/plugins_url(). On editors and the settings page only,
+wp_enqueue_script() adds the dependency-free counters.js in the footer with
+defer. Other Yoast pages receive no own JavaScript. No raw request parameters
+are consumed.
+https://developer.wordpress.org/reference/hooks/admin_enqueue_scripts/
+https://developer.wordpress.org/reference/functions/get_current_screen/
+https://developer.wordpress.org/reference/functions/wp_enqueue_style/
+https://developer.wordpress.org/reference/functions/plugins_url/
+https://developer.wordpress.org/reference/functions/wp_enqueue_script/
+
+The main file uses WordPress's Requires Plugins header. WordPress handles normal
+dependency activation. All plugin entry files stop when ABSPATH is absent.
+There are no privileged state-changing endpoints or forms requiring nonces.
+https://developer.wordpress.org/plugins/plugin-basics/header-requirements/
+https://developer.wordpress.org/apis/security/
+https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/
+https://developer.wordpress.org/coding-standards/inline-documentation-standards/php/
+https://developer.wordpress.org/plugins/wordpress-org/detailed-plugin-guidelines/
+
+Provider sources and contracts
+
+Original distribution: Yoast SEO 28.8, released 2026-10-27.
+https://downloads.wordpress.org/plugin/wordpress-seo.28.8.zip
+SHA256: 27cc01cb149db7186ef750552a5cc2ae5028933473886e419918af273b075105
+Official tag 28.8 resolves to commit 1f545cc5d6e9c94dfc657d4cdf6ceda994028929.
+Fixed source base:
+https://github.com/Yoast/wordpress-seo/tree/1f545cc5d6e9c94dfc657d4cdf6ceda994028929
+
+admin/menu/class-admin-menu.php documents wpseo_submenu_pages. It receives and
+returns tuples [parent_slug, page_title, menu_html, capability, page_slug,
+callback]. The plugin excludes only known advertising page_slug values in
+tuple index 4; other tuples and keys remain unchanged. Unlike the native
+navigation fallback, excluding a tuple can also prevent registration of that
+advertising page's callback. No permission check is bypassed.
+
+inc/class-wpseo-admin-bar-menu.php documents current toolbar registrations.
+src/helpers/product-helper.php identifies Premium through WPSEO_PREMIUM_FILE.
+admin/class-admin.php supplies the /1yb Premium action link.
+src/integrations/admin/redirections-tools-page.php registers the tools upsell.
+
+CSS markup contracts
+
+These selectors are not documented, stable Yoast extension APIs. Native WP asset
+APIs load owned CSS; the following original sources establish its markup scope.
+
+admin/class-premium-upsell-admin-block.php: .yoast_premium_upsell.
+src/presenters/admin/sidebar-presenter.php: .yoast-sidebar__product.
+packages/js/src/shared-admin/components/premium-upsell-card.js: direct square
+logo figure within the modern Premium sidebar card.
+packages/js/src/shared-admin/components/premium-upsell-list.js: footer Paper
+containing only the /17h or /admin-footer-upsell-woocommerce upsell.
+packages/js/src/settings/components/feature-item.js: feature card IDs and
+.yst-button--upsell exist together only while the feature is gated. The whole
+list row is hidden; real free switches remain visible.
+packages/ui-library/src/components/feature-upsell/index.js: .yst-feature-upsell
+exists only for shouldUpsell=true; active children return without this wrapper.
+packages/js/src/components/modals/KeywordUpsell.js and
+packages/js/src/components/modals/InternalLinkingSuggestionsUpsell.js: exact
+modal-open IDs; full WordPress panel wrappers are hidden where present.
+packages/js/src/components/contentAnalysis/PremiumSeoAnalysisUpsellAd.js:
+explicit Premium and WooCommerce advertisement ID prefixes.
+packages/js/src/ai-optimizer/components/ai-optimize-button.js: data-id ends in
+AIFixes, and the lock child exists only for an upsell. Unlocked actions remain.
+packages/js/src/components/contentAnalysis/ReadabilityAnalysis.js: exact
+word-complexity shortlink identifies the UI-only advertisement row. Scope is
+the .yoast component or WordPress complementary sidebar, not editorial content.
+
+Presentation counter adapter (since 1.1.0)
+
+ReadabilityAnalysis constructs upsellResults directly during render. The real
+worker/Redux analysis result filters never receive this advertisement. The
+analysis-report ContentAnalysis component counts the combined result array.
+Settings features-section.js likewise counts its original features array.
+CSS alone cannot correct these numeric text nodes. counters.js now corrects only
+their displayed text, preserving the original assessment and provider state.
+
+The adapter identifies fieldset.yst-group > button > h2 under the settings root
+and the exact readability Problems button IDs. It verifies the native numeric
+title against the number of direct UL>LI items. It excludes only a confirmed
+advertisement row that the plugin's CSS actually hides, never an assessment
+containing an AI upsell button or a whole accordion hidden by its ancestor.
+
+It changes the unique title Text.data, preserving provider elements, SVG, event
+handlers and React references. A WeakMap tracks the current native title text.
+Native character-data writes are recorded even when their value equals our last
+displayed correction. The observer disconnects for synchronous owned writes;
+pending native records are drained first. This avoids repeated subtraction and
+observer feedback loops. Batched microtasks refresh only known counters or
+newly added counter markup in persistent owning roots; there is no polling.
+
+When collapsing unmounts a list, prior exclusions are retained only if native
+collapse is confirmed: aria-expanded=false for readability, or the settings
+button's changed translated screen-reader label versus its observed open label,
+with only the expected direct button remaining. A restructured/nested unknown
+list restores the native text. No English-label or section-position guess is
+used. Initially collapsed, unobserved lists retain native text until first
+opened. Yoast 28.8's site-features store defaults all six sections open and does
+not persist that slice, so ordinary initial route loading provides evidence.
+
+A verified advertisement-only panel receives the owned attribute
+data-rktsky-quiet-empty=true and is hidden. When real findings arrive, the marker
+is removed and the panel returns. No result, stored score or licence flag is
+changed. Unknown title/row structures retain native counts.
+
+Standard DOM contracts:
+https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
+https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
+https://developer.mozilla.org/en-US/docs/Web/API/CharacterData/data
+
+The provider documentation for custom analysis data and assessments does not
+offer a supported way to remove these separate UI-only results from its state:
+https://developer.yoast.com/customization/yoast-seo/adding-custom-data-analysis/
+https://developer.yoast.com/customization/yoast-seo/adding-custom-assessments/
+
+Maintenance
+
+After a Yoast update, review the same source paths and repeat the functional and
+visual checks before changing selectors. Unknown markup should remain visible
+rather than removing real inputs. CSS hiding prevents rendering/focus exposure;
+Yoast may still instantiate its own underlying promotional React components.
