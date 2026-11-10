@@ -1,0 +1,20 @@
+{
+  "name": "@rktsky/quiet-yoast-development",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Development-only verification for Rocketsky Quiet Yoast; no runtime plugin dependencies.",
+  "license": "GPL-2.0-or-later",
+  "type": "module",
+  "engines": { "node": ">=24 <25" },
+  "scripts": {
+    "test": "node tests/run.mjs all",
+    "test:native": "node tests/run.mjs native",
+    "test:dom": "node tests/counter-dom.mjs"
+  },
+  "devDependencies": {
+    "@php-wasm/node": "3.1.62",
+    "@wp-playground/cli": "3.1.62",
+    "@wp-playground/wordpress": "3.1.62",
+    "jsdom": "31.0.0"
+  }
+}
