@@ -1,4 +1,38 @@
-Rocketsky – Quiet Yoast 1.1.0: verification record
+Rocketsky – Quiet Yoast 1.1.1: verification record
+2026-11-10
+
+Task-list patch verification
+
+Repeated the complete local suite on WordPress 7.1.4, original Yoast SEO Free
+28.8, PHP 8.3.36/WASM and Node.js 24.22.1. All 53 WordPress integration checks,
+five PHP/parser/guard checks and 43 DOM assertions passed. Asset registration
+now uses version 1.1.1. No new runtime JavaScript or dependency was added.
+
+Eight additional DOM assertions exercise the actual stylesheet against the
+verified TaskListUpsellRow structure: plain and tracked exact footer URLs,
+preserved real tasks and native progress, lookalike hosts/paths, unknown row
+structure, root scoping and dynamically inserted ads without observer work.
+
+Native Chromium checks in the isolated localhost site confirmed the Premium
+footer row changed from table-row to none. All 11 actual task rows matched the
+inactive-plugin baseline. The native progress remained 5/11 with bar width
+45.4545%; the advertisement was already excluded from these native counts.
+A real first-time-configuration task dialog opened and closed normally.
+Alert center -> Task list navigation retained the cleanup and task data.
+The advertisement stayed absent from the accessibility tree. No own counter
+script loaded on this screen. At 390 CSS pixels, all tasks remained present,
+the ad stayed hidden and the document had no horizontal overflow. The normal
+1280-pixel view also had no horizontal overflow. These are desktop viewport
+checks, not physical mobile-device tests.
+
+The free webinar notice, Academy resources and configuration notice remain
+available. Only the separate Premium footer advertisement is newly hidden.
+Provider files were not edited. The earlier editor/settings browser evidence
+below is retained as the 1.1.0 baseline; those unchanged views were not manually
+retested for this narrowly scoped task-list CSS patch. The full automated
+settings/readability regressions were rerun. Known coverage limits still apply.
+
+Baseline 1.1.0 verification
 2026-11-09
 
 Executed integration checks

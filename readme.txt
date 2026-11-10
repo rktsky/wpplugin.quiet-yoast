@@ -4,7 +4,7 @@ Requires at least: 6.5
 Requires PHP: 7.4
 Requires Plugins: wordpress-seo
 Tested up to: 7.1
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,6 +18,8 @@ Es bereinigt Werbeeinträge im Yoast-Menü, in der Werkzeug-Navigation, in der
 Toolbar und in der Pluginliste. Gezieltes CSS blendet Premium-Karten, gesperrte
 Premium-Vorschauen, zusätzliche Keyphrasen, interne Verlinkungsvorschläge,
 Premium-Analysewerbung und gesperrte KI-Optimierungsschaltflächen aus.
+Auch die Premium-Werbezeile unter der Aufgabenliste wird ausgeblendet; die
+eigentlichen Aufgaben und deren Fortschrittsanzeige bleiben erhalten.
 
 Die angezeigten Funktions- und Problemzähler berücksichtigen diese versteckten
 Werbezeilen nicht mehr. Dafür lädt das Plugin eine kleine eigene JavaScript-Datei
@@ -39,7 +41,7 @@ lediglich Werbeeinträge aus einer vorhandenen Toolbar entfernt; es werden keine
 
 1. Die kostenlose Version von Yoast SEO installieren und aktivieren.
 2. Unter «Plugins > Neues Plugin hinzufügen > Plugin hochladen» die ZIP-Datei
-   rktsky-quiet-yoast-1.1.0.zip auswählen.
+   rktsky-quiet-yoast-1.1.1.zip auswählen.
 3. Installieren und «Rocketsky – Quiet Yoast» aktivieren.
 4. Bereits geöffnete Verwaltungsseiten neu laden.
 
@@ -93,6 +95,11 @@ Weitere Quellen, Tests und bewusst offene Prüfungen: docs/interfaces.txt und
 docs/verification.txt. Das Paket enthält weder WordPress/Yoast noch Testwerkzeuge.
 
 == Changelog ==
+
+= 1.1.1 =
+Verbliebene Premium-Werbezeile unter der Aufgabenliste ausgeblendet. Aufgaben,
+Fortschritt und kostenlose Bedienelemente bleiben unverändert. Acht ergänzende
+Darstellungsprüfungen sichern die Begrenzung auf diese Werbezeile ab.
 
 = 1.1.0 =
 Angezeigte Funktions- und Problemzähler um bestätigte versteckte Werbezeilen

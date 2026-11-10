@@ -1,5 +1,5 @@
-Rocketsky – Quiet Yoast 1.1.0: interface contracts
-Reviewed 2026-11-09
+Rocketsky – Quiet Yoast 1.1.1: interface contracts
+Reviewed 2026-11-10
 
 Scope
 
@@ -96,6 +96,20 @@ packages/js/src/shared-admin/components/premium-upsell-card.js: direct square
 logo figure within the modern Premium sidebar card.
 packages/js/src/shared-admin/components/premium-upsell-list.js: footer Paper
 containing only the /17h or /admin-footer-upsell-woocommerce upsell.
+packages/js/src/general/components/task-list-upsell-row.js: the separate
+tr.yst-table-row > td.yst-table-cell[colspan="4"] contains only a Premium
+promotion. Since 1.1.1 the entire row hides only when its .yst-button--upsell
+links to exactly https://yoa.st/task-list-upsell-table-footer, optionally
+followed by a tracking query. Similar hosts and path suffixes remain visible.
+The general root scopes the rule; it never hides the table or its real tasks.
+packages/js/src/general/routes/task-list.js appends this advertisement after
+the task map. packages/dashboard-frontend/src/store/task-list.js derives the
+completed/total counts from actual tasks, excluding the advertisement already.
+Those task counts and progress-bar values therefore need no correction, and
+the task-list screen continues to receive no own JavaScript.
+https://github.com/Yoast/wordpress-seo/blob/1f545cc5d6e9c94dfc657d4cdf6ceda994028929/packages/js/src/general/components/task-list-upsell-row.js
+https://github.com/Yoast/wordpress-seo/blob/1f545cc5d6e9c94dfc657d4cdf6ceda994028929/packages/js/src/general/routes/task-list.js
+https://github.com/Yoast/wordpress-seo/blob/1f545cc5d6e9c94dfc657d4cdf6ceda994028929/packages/dashboard-frontend/src/store/task-list.js
 packages/js/src/settings/components/feature-item.js: feature card IDs and
 .yst-button--upsell exist together only while the feature is gated. The whole
 list row is hidden; real free switches remain visible.
