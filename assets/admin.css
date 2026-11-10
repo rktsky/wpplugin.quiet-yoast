@@ -24,6 +24,11 @@
 	display: none !important;
 }
 
+/* TaskListUpsellRow is a separate footer row, outside real task progress. */
+#yoast-seo-general tr.yst-table-row:has(> td.yst-table-cell[colspan="4"] a.yst-button--upsell:is([href="https://yoa.st/task-list-upsell-table-footer"], [href^="https://yoa.st/task-list-upsell-table-footer?"])) {
+	display: none !important;
+}
+
 /* Keep real feature toggles if a formerly gated feature becomes available. */
 #yoast-seo-settings li:has(> [id^="card-wpseo-"] .yst-button--upsell) {
 	display: none !important;

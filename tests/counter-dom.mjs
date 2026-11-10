@@ -128,5 +128,23 @@ function count(heading){return /\((\d+)\)/.exec(heading.textContent)?.[1];}
  label.firstChild.data='Einklappen';await settle(e.window);
  check('Label Text-only expansion without direct UL restores native count',count(heading)==='3',{title:heading.textContent});e.close();
 }
+
+{
+ // Yoast 28.8 TaskListUpsellRow is appended after actual tasks. Its progress
+ // comes from the task store independently, so only the promotional TR hides.
+ const destination='https://yoa.st/task-list-upsell-table-footer';
+ const row=(id,href,{span=4}={})=>`<tr id="${id}" class="yst-table-row"><td class="yst-table-cell yst-bg-slate-50" colspan="${span}"><h3>Unlock all Yoast SEO Premium tasks</h3><a class="yst-button yst-button--upsell" href="${href}">Unlock with Premium</a></td></tr>`;
+ const e=await env(`<div id="yoast-seo-general"><h2 id="task-count">Tasks 9/11</h2><progress value="9" max="11"></progress><table><tbody><tr id="real-task" class="yst-table-row"><td class="yst-table-cell"><button>Improve recent content</button></td><td>Medium</td><td>10 min</td><td>21/22</td></tr>${row('task-ad',destination)}${row('task-ad-tracked',destination+'?php_version=8.3')}${row('task-other-host','https://yoa.st.example.test/task-list-upsell-table-footer')}${row('task-other-path',destination+'-help')}${row('task-unknown-shape',destination,{span:3})}</tbody></table></div><table><tbody>${row('task-outside-root',destination)}</tbody></table>`),d=e.document;
+ const hidden=id=>e.window.getComputedStyle(d.getElementById(id)).display==='none';
+ check('Task-list Premium footer row hides with exact destination',hidden('task-ad')&&e.errors.length===0,{errors:e.errors});
+ check('Task-list Premium footer row hides with tracking query',hidden('task-ad-tracked'));
+ check('Real task row and actionable control remain visible',!hidden('real-task')&&d.querySelector('#real-task button').textContent==='Improve recent content');
+ check('Task-list progress and real task counts remain native',d.querySelector('#task-count').textContent==='Tasks 9/11'&&d.querySelector('progress').value===9&&d.querySelector('progress').max===11&&d.querySelector('#real-task td:last-child').textContent==='21/22'&&e.callbacks===0);
+ check('Task-list lookalike host and path remain visible',!hidden('task-other-host')&&!hidden('task-other-path'));
+ check('Unknown task-row structure remains visible',!hidden('task-unknown-shape'));
+ check('Task-list selector is limited to the Yoast general root',!hidden('task-outside-root'));
+ d.querySelector('#yoast-seo-general tbody').insertAdjacentHTML('beforeend',row('task-ad-added',destination+'?source=route-remount'));await settle(e.window);
+ check('Dynamically appended task-list advertisement hides without script',hidden('task-ad-added')&&e.callbacks===0);e.close();
+}
 fs.writeFileSync(path.join(resultsDirectory,'counter-dom-results.json'),JSON.stringify({environment:'jsdom fixture DOM; real plugin CSS + JS, no getComputedStyle shim; not a browser/React integration test',results:results.map(({name,pass})=>({name,pass}))},null,2));
 if(results.some(r=>!r.pass))process.exitCode=1;
